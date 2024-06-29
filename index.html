@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div id="glowscript" class="glowscript">
+        <script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+        <script type="text/javascript" src="https://s3.amazonaws.com/glowscript/package/glow.2.7.min.js"></script>
+        <script type="text/javascript">
+<!--//--><![CDATA[//><!--
+;(function() { var __rt=srequire('streamline/lib/callbacks/runtime').runtime(__filename, false),__func=__rt.__func,__cb=__rt.__cb;
+function main(_) {var __frame = { name: "main", line: 1 }; return __func(_, this, arguments, main, 0, __frame, function __$main() {
+
+		scene = canvas();
+
+var N=3;
+var x  = new Array(N);
+
+var k0 =new Array(N);
+var k1 =new Array(N);
+var k2 =new Array(N);
+var k3 =new Array(N);
+
+var ww =new Array(N);
+
+var a=0.6;
+var f =  new Array(N);
+
+f[0]= function(t,x) {var ff= (x[2]-0.7)*x[0]-3.5*x[1];return ff}
+f[1]= function(t,x) {var ff=3.5*x[0]+(x[2]-0.7)*x[1];return ff}
+f[2]= function(t,x) {var ff=a+x[2]-x[2]*x[2]*x[2]/3-(x[0]*x[0]+x[1]*x[1])*(1+0.25*x[2]);return ff}
+f[0]= function(t,x) {var ff= 10*(x[1]-x[0]);return ff}
+f[1]= function(t,x) {var ff=28*x[0]-x[1]-x[0]*x[2];return ff}
+    f[2] = function (t, x) { var ff = -8 / 3 * x[2] + x[0] * x[1]; return ff }
+
+a=1.5
+
+f[0]= function(t,x) {var ff= (x[2]-0.7)*x[0]-3.5*x[1];return ff}
+f[1]= function(t,x) {var ff=3.5*x[0]+(x[2]-0.7)*x[1];return ff}
+    f[2] = function (t, x) { var ff = a + x[2] - x[2] * x[2] * x[2] / 3 - (x[0] * x[0] + x[1] * x[1]) * (1 + 0.25 * x[2]); return ff }
+
+    f[0] = function (t, x) { var ff = -a * x[0] - 4 * x[1] - 4 * x[2] - Math.pow(x[1], 2); return ff }
+    f[1] = function (t, x) { var ff = -a * x[1] - 4 * x[2] - 4 * x[0] - Math.pow(x[2], 2); return ff }
+    f[2] = function (t, x) { var ff = -a * x[2] - 4 * x[0] - 4 * x[1] - Math.pow(x[0], 2); return ff }
+
+
+n=10;
+xx=new Array(n);
+yy=new Array(n);
+zz=new Array(n);
+atom=new Array(n);
+
+for(j=0;j<n;j++){
+atom[j]=sphere();
+atom[j].size=vec(0.2,0.2,0.2);
+atom[j].color=vec(1,0,0);
+attach_trail(atom[j],{pps:10,retain:1000});
+xx[j]=0;
+yy[j]=(j+1)/n;
+zz[j]=0;
+
+}
+
+	t=0;dt = 0.01;
+
+return (function ___(__break) { var __more; var __loop = __cb(_, __frame, 0, 0,function __$main() { __more = false;
+var __1 = true; if (__1) {return rate(60, __cb(_, __frame, 64, 4,
+function __$main() {
+
+for(j=0;j<n;j++){
+
+x[0]=xx[j];
+x[1]=yy[j];
+x[2]=zz[j];
+
+for(i=0;i<N;i++){ww[i]=x[i]}
+for(i=0;i<N;i++){k0[i]=dt*f[i](t,ww)}
+
+for(i=0;i<N;i++){ww[i]=x[i]+k0[i]/2}
+for(i=0;i<N;i++){k1[i]=dt*f[i](t+dt/2,ww)}
+
+for(i=0;i<N;i++){ww[i]=x[i]+k1[i]/2}
+for(i=0;i<N;i++){k2[i]=dt*f[i](t+dt/2,ww)}
+
+for(i=0;i<N;i++){ww[i]=x[i]+k2[i]}
+for(i=0;i<N;i++){k3[i]=dt*f[i](t+dt,ww)}
+
+for(i=0;i<N;i++){x[i]=x[i]+(k0[i]+k1[i]*2+k2[i]*2+k3[i])/6}
+
+				xxx=x[0];
+				yyy=x[1];
+				zzz=x[2];
+atom[j].pos=vec(xxx,zzz,yyy)
+
+xx[j]=xxx;
+yy[j]=yyy;
+zz[j]=zzz;
+
+}
+
+scene.forward = vec(cos(t/2),cos(t/2),1["-u"]());
+
+t=t+dt;
+
+while (__more) { __loop(); }; __more = true; }, true)); } else { __break(); } ; });
+do { __loop(); }while (__more); __more = true; })(_); });};
+main;;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; main(__func) })})()
+//--><!]]></script>
+    </div>
+</body>
+</html>
